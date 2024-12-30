@@ -1,0 +1,40 @@
+name: Output Event Details
+on:
+  issues:
+    types: [opened, edited]
+jobs:
+  output-event-details:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output event details
+        run: |
+          echo "Event name: ${{ github.event_name }}."
+          echo "Action: ${{ github.event.action }}."
+          echo "Issue number: ${{ github.event.issue.number }}."
+          echo "Issue title: ${{ github.event.issue.title }}."
+          echo "Issue body: ${{ github.event.issue.body }}."
+          echo "Issue user: ${{ github.event.issue.user.login }}."
+          echo "Issue user type: ${{ github.event.issue.user.type }}."
+          echo "Issue user id: ${{ github.event.issue.user.id }}."
+          echo "Issue user avatar: ${{ github.event.issue.user.avatar_url }}."
+          echo "Issue user url: ${{ github.event.issue.user.html_url }}."
+          echo "Issue assignee: ${{ github.event.issue.assignee.login }}."
+          echo "Issue assignee type: ${{ github.event.issue.assignee.type }}."
+          echo "Issue assignee id: ${{ github.event.issue.assignee.id }}."
+          echo "Issue assignee avatar: ${{ github.event.issue.assignee.avatar_url }}."
+          echo "Issue assignee url: ${{ github.event.issue.assignee.html_url }}."
+          echo "Issue assignees: ${{ join(github.event.issue.assignees.*.login, ', ') }}."
+          echo "Issue assignees types: ${{ join(github.event.issue.assignees.*.type, ', ') }}."
+          echo "Issue assignees ids: ${{ join(github.event.issue.assignees.*.id, ', ') }}."
+          echo "Issue assignees avatars: ${{ join(github.event.issue.assignees.*.avatar_url, ', ') }}."
+          echo "Issue assignees urls: ${{ join(github.event.issue.assignees.*.html_url, ', ') }}."
+          echo "Issue labels: ${{ join(github.event.issue.labels.*.name, ', ') }}."
+          echo "Issue labels colors: ${{ join(github.event.issue.labels.*.color, ', ') }}."
+          echo "Issue labels descriptions: ${{ join(github.event.issue.labels.*.description, ', ') }}."
+          echo "Issue labels urls: ${{ join(github.event.issue.labels.*.url, ', ') }}."
+          echo "Issue milestone: ${{ github.event.issue.milestone.title }}."
+          echo "Issue milestone description: ${{ github.event.issue.milestone.description }}."
+          echo "Issue milestone due date: ${{ github.event.issue.milestone.due_on }}."
+          echo "Issue milestone url: ${{ github.event.issue.milestone.html_url }}."
+          echo "Issue comments: ${{ github.event.issue.comments }}."
+          echo "Issue created at: ${{ github.event.issue.created_at }}."
