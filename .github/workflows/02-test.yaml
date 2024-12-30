@@ -1,0 +1,14 @@
+name: Test Project
+on: push
+defaults:
+  run:
+    working-directory: ./02-starting-project
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm test
