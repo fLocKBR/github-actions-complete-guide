@@ -1,5 +1,6 @@
 name: Deploy Project
-on: push
+on:
+  workflow_dispatch:
 defaults:
   run:
     working-directory: ./02-starting-project
