@@ -90,3 +90,4 @@ jobs:
     steps:
       - name: Output information
         run: echo "There was a failure in the workflow"
+        working-directory: .
