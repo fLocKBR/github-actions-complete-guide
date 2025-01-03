@@ -1,0 +1,20 @@
+name: Get & Cache Dependencies
+description: Get dependencies and cache them for future runs
+inputs:
+  project-path:
+    description: 'The path to the project'
+    required: true
+    default: '.'
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache dependencies
+      id: cache
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: deps-node-modules-${{ hashFiles('${{ inputs.project-path }}/package-lock.json') }}
+    - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm ci
+      shell: bash
