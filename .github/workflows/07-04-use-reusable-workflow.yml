@@ -1,8 +1,6 @@
 name: 07.4 - Using Reusable Workflow
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 defaults:
   run:
     working-directory: 07-execution-flow
