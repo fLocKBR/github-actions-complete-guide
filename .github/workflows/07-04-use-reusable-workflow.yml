@@ -74,6 +74,14 @@ jobs:
     uses: ./.github/workflows/07-04-reusable-workflow.yml
     with:
       artifact: dist-files
+  deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print deploy output
+        run: |
+          echo "Deploy result: ${{ needs.deploy.outputs.result }}"
+        working-directory: .
   report:
     needs:
       - lint
