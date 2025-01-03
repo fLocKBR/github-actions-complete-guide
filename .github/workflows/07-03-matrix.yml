@@ -2,6 +2,9 @@ name: 07.3 - Matrix Demo
 on: push
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: 07-execution-flow
     strategy:
       matrix:
         node-version: [16, 18, 20]
