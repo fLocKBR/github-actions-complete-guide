@@ -1,8 +1,6 @@
 name: 09 - Deployment
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 defaults:
   run:
     working-directory: 09-starting-project
@@ -72,11 +70,15 @@ jobs:
       - name: Output contents
         run: ls
       - name: Deploy site
-        run: echo "Deploying..."
-  information:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v4
-      - name: Run custom action
+        id: deploy
         uses: ./.github/actions/deploy-s3-javascript
+        # uses: ./.github/actions/deploy-s3-docker
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          bucket-name: ${{ secrets.AWS_BUCKET_NAME }}
+          source-dir: ./dist
+      - name: Output website URL
+        run: |
+          echo "Website URL: ${{ steps.deploy.outputs.website-url }}"
