@@ -27,6 +27,7 @@ jobs:
         uses: ./.github/actions/cache-deps
         with:
           project-path: 09-starting-project
+          caching: 'false'
       - name: Test code
         id: run-tests
         run: npm run test
