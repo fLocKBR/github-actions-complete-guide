@@ -5,15 +5,9 @@ on:
 jobs: 
   push:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
     steps:
       - name: Print information
         run: |
-          echo "${{ github.ref_name }}"
-  pull_request:
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
-    steps:
-      - name: Print information
-        run: |
-          echo "${{ github.head_ref	}}"
+          echo "ref_name: ${{ github.ref_name }}"
+          echo "head_ref: ${{ github.head_ref	}}"
+          echo "base_ref: ${{ github.base_ref}}""
