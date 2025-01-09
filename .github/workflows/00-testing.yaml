@@ -3,9 +3,17 @@ on:
   push:
   pull_request:
 jobs: 
-  test:
+  push:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
     steps:
       - name: Print information
         run: |
           echo "${{ github.ref_name }}"
+  pull_request:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
+    steps:
+      - name: Print information
+        run: |
+          echo "${{ github.head_ref	}}"
