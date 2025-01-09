@@ -3,9 +3,29 @@ on:
   push:
   pull_request:
 jobs: 
-  test:
+  push:
     runs-on: ubuntu-latest
     steps:
       - name: Print information
         run: |
-          echo "${{ github.ref_name }}"
+          echo "ref_name: ${{ github.ref_name }}"
+          echo "head_ref: ${{ github.head_ref	}}"
+          echo "base_ref: ${{ github.base_ref }}"
+  set-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set environment variables
+        run: |
+          if [[ ${{ github.ref_name }} == "stage" || ${{ github.base_ref }} == "stage" ]]; then
+            echo "Setting environment variables"
+            echo "ENVIRONMENT=stage" >> $GITHUB_ENV
+          elif [[ ${{ github.ref_name }} == "main" || ${{ github.base_ref }} == "main" ]]; then
+            echo "Setting environment variables"
+            echo "ENVIRONMENT=prod" >> $GITHUB_ENV
+          else
+            echo "Setting environment variables"
+            echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+          fi
+      - name: Print environment variables
+        run: |
+          echo "ENVIRONMENT: ${{ env.ENVIRONMENT }}"
