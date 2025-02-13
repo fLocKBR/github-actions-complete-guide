@@ -20,10 +20,10 @@ jobs:
         id: set-env
         run: |
           if [[ ${{ github.event_name }} == "push" ]]; then
-            if [[ ${{ github.ref_name }} == "stage" || ${{ github.base_ref }} == "stage" ]]; then
+            if [[ ${{ github.ref_name }} == "stage" ]]; then
               echo "Setting environment variables"
               echo "ENVIRONMENT=stage" >> $GITHUB_OUTPUT
-            elif [[ ${{ github.ref_name }} == "main" || ${{ github.base_ref }} == "main" ]]; then
+            elif [[ ${{ github.ref_name }} == "main" ]]; then
               echo "Setting environment variables"
               echo "ENVIRONMENT=prod" >> $GITHUB_OUTPUT
             else
