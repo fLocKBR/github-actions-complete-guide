@@ -6,46 +6,15 @@ jobs:
   push:
     runs-on: ubuntu-latest
     steps:
-      - name: Print information
-        run: |
-          echo "ref_name: ${{ github.ref_name }}"
-          echo "head_ref: ${{ github.head_ref	}}"
-          echo "base_ref: ${{ github.base_ref }}"
-  set-env:
-    runs-on: ubuntu-latest
-    outputs:
-      ENVIRONMENT: ${{ steps.set-env.outputs.ENVIRONMENT }}
-    steps:
-      - name: Set environment variables
+      - name: Set Environment
         id: set-env
         run: |
-          if [[ ${{ github.event_name }} == "push" ]]; then
-            if [[ ${{ github.ref_name }} == "stage" ]]; then
-              echo "Setting environment variables"
-              echo "ENVIRONMENT=stage" >> $GITHUB_OUTPUT
-            elif [[ ${{ github.ref_name }} == "main" ]]; then
-              echo "Setting environment variables"
-              echo "ENVIRONMENT=prod" >> $GITHUB_OUTPUT
-            else
-              echo "Setting environment variables"
-              echo "ENVIRONMENT=dev" >> $GITHUB_OUTPUT
-            fi
-          elif [[ ${{ github.event_name }} == "pull_request" ]]; then
-            if [[ ${{ github.base_ref }} == "stage" ]]; then
-              echo "Setting environment variables"
-              echo "ENVIRONMENT=stage" >> $GITHUB_OUTPUT
-            elif [[ ${{ github.base_ref }} == "main" ]]; then
-              echo "Setting environment variables"
-              echo "ENVIRONMENT=prod" >> $GITHUB_OUTPUT
-            else
-              echo "Setting environment variables"
-              echo "ENVIRONMENT=dev" >> $GITHUB_OUTPUT
-            fi
+          if [[ ${{ github.ref_name }} == "develop" ]]; then
+            echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+          elif [[ ${{ github.ref_name }} == "homol" ]]; then
+            echo "ENVIRONMENT=hml" >> $GITHUB_ENV
+          elif [[ ${{ github.ref_name }} == "main" ]]; then
+            echo "ENVIRONMENT=prd" >> $GITHUB_ENV
           fi
-  print-env:
-    runs-on: ubuntu-latest
-    needs: set-env
-    steps:
-      - name: Print environment variables
-        run: |
-          echo "ENVIRONMENT: ${{ needs.set-env.outputs.ENVIRONMENT }}"
+      - name: Print Environment
+        run: echo ${{ env.ENVIRONMENT }}
