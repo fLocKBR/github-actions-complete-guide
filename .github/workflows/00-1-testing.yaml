@@ -32,4 +32,4 @@ jobs:
             fi
           fi
       - name: Print Environment
-        run: echo ${{ env.ENVIRONMENT }}
+        run: echo ${{ env.ENVIRONMENT || 'No environment set' }}
