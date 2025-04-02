@@ -23,11 +23,11 @@ jobs:
               echo "ENVIRONMENT=prd" >> $GITHUB_ENV
             fi
           elif [[ ${{ github.event_name}} == "pull_request" ]]; then
-            if [[ ${{ github.base_ref }} == "develop" ]]; then
+            if [[ "${{ github.base_ref }}" == "develop" ]]; then
               echo "ENVIRONMENT=dev" >> $GITHUB_ENV
-            elif [[ ${{ github.base_ref }} == "homol" ]]; then
+            elif [[ "${{ github.base_ref }}" == "homol" ]]; then
               echo "ENVIRONMENT=hml" >> $GITHUB_ENV
-            elif [[ ${{ github.base_ref }} == "main" ]]; then
+            elif [[ "${{ github.base_ref }}" == "main" ]]; then
               echo "ENVIRONMENT=prd" >> $GITHUB_ENV
             fi
           fi
