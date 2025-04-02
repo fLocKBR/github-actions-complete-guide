@@ -33,3 +33,6 @@ jobs:
           fi
       - name: Print Environment
         run: echo ${{ env.ENVIRONMENT || 'No environment set' }}
+      - name: Print head_branch
+        if: ${{ github.event_name == 'workflow_run' }}
+        run: echo ${{ github.event.workflow_run.head_branch }}
