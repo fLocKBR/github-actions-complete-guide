@@ -15,11 +15,11 @@ jobs:
         id: set-env
         run: |
           if [[ ${{ github.event_name }} == "push" ]]; then
-            if [[ ${{ github.ref_name }} == "develop" ]]; then
+            if [[ "${{ github.ref_name }}" == "develop" ]]; then
               echo "ENVIRONMENT=dev" >> $GITHUB_ENV
-            elif [[ ${{ github.ref_name }} == "homol" ]]; then
+            elif [[ "${{ github.ref_name }}" == "homol" ]]; then
               echo "ENVIRONMENT=hml" >> $GITHUB_ENV
-            elif [[ ${{ github.ref_name }} == "main" ]]; then
+            elif [[ "${{ github.ref_name }}" == "main" ]]; then
               echo "ENVIRONMENT=prd" >> $GITHUB_ENV
             fi
           elif [[ ${{ github.event_name}} == "pull_request" ]]; then
