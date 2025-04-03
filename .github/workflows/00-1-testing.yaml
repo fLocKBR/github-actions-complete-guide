@@ -11,30 +11,30 @@ jobs:
   set-env:
     runs-on: ubuntu-latest
     outputs:
-      environment: ${{ steps.set-env.outputs.environment }}
+      environment: ${{ steps.set-env.outputs.ENVIRONMENT }}
     steps:
       - name: Set Environment
         id: set-env
         run: |
           if [[ ${{ github.event_name }} == "push" ]]; then
             if [[ "${{ github.ref_name }}" == "develop" ]]; then
-              echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+              echo "ENVIRONMENT=dev" >> $GITHUB_OUTPUT
             elif [[ "${{ github.ref_name }}" == "homol" ]]; then
-              echo "ENVIRONMENT=hml" >> $GITHUB_ENV
+              echo "ENVIRONMENT=hml" >> $GITHUB_OUTPUT
             elif [[ "${{ github.ref_name }}" == "main" ]]; then
-              echo "ENVIRONMENT=prd" >> $GITHUB_ENV
+              echo "ENVIRONMENT=prd" >> $GITHUB_OUTPUT
             fi
           elif [[ ${{ github.event_name}} == "pull_request" ]]; then
             if [[ "${{ github.base_ref }}" == "develop" ]]; then
-              echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+              echo "ENVIRONMENT=dev" >> $GITHUB_OUTPUT
             elif [[ "${{ github.base_ref }}" == "homol" ]]; then
-              echo "ENVIRONMENT=hml" >> $GITHUB_ENV
+              echo "ENVIRONMENT=hml" >> $GITHUB_OUTPUT
             elif [[ "${{ github.base_ref }}" == "main" ]]; then
-              echo "ENVIRONMENT=prd" >> $GITHUB_ENV
+              echo "ENVIRONMENT=prd" >> $GITHUB_OUTPUT
             fi
           fi
       - name: Print Environment
-        run: echo ${{ env.ENVIRONMENT || 'No environment set' }}
+        run: echo ${{ steps.set-env.outputs.ENVIRONMENT || 'No environment set' }}
       - name: Print head_branch
         if: ${{ github.event_name == 'workflow_run' }}
         run: echo ${{ github.event.workflow_run.head_branch }}
