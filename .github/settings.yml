@@ -1,6 +1,5 @@
 environments:
   - name: prd
-    wait_timer: 5
     reviewers:
       - id: 52131752
         type: 'User'
