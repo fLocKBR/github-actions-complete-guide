@@ -1,0 +1,9 @@
+environments:
+  - name: prd
+    wait_timer: 5
+    reviewers:
+      - id: 52131752
+        type: 'User'
+    deployment_branch_policy:
+      custom_branches:
+        - main
