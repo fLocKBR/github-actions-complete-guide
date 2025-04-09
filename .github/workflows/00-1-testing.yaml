@@ -11,12 +11,14 @@ jobs:
   version:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Print version file
-        run: |
-          echo "Version file content:"
-          cat version.txt
+      - name: Dump GitHub context
+        run: echo '${{ toJSON(github) }}'
+      # - name: Checkout code
+      #   uses: actions/checkout@v4
+      # - name: Print version file
+      #   run: |
+      #     echo "Version file content:"
+      #     cat version.txt
   # set-env:
   #   runs-on: ubuntu-latest
   #   outputs:
