@@ -16,11 +16,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_branch }}
+          ref: ${{ github.event.workflow_run.head_branch || github.ref }}
       - name: Print version file
+        env:
+          BRANCH: ${{ github.event.workflow_run.head_branch || github.ref }}
         run: |
           echo "Version file content:"
           cat version.txt
+          echo "BRANCH: $BRANCH"
   # set-env:
   #   runs-on: ubuntu-latest
   #   outputs:
