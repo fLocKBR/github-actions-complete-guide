@@ -1,0 +1,10 @@
+name: 00-0-testing
+on:
+  workflow_dispatch:
+
+jobs:
+  branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print ref_name
+        run: echo ${{ github.ref_name }}
