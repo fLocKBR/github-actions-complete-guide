@@ -1,12 +1,12 @@
 name: Testing
 on:
+  workflow_dispatch:
   # push:
   #   branches:
   #     - develop
   #     - homol
   #     - main
   # pull_request:
-  workflow_dispatch:
   # workflow_run:
   #   workflows: ["Build"]
   #   types:
