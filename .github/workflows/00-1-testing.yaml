@@ -18,12 +18,12 @@ jobs:
       - name: Set environment variable
         id: set-env
         run: |
-          if [[ "{{ github.event_name }}" == "pull_request"]]; then
-            TARGET_BRANCH="{{ github.base_ref }}"
-          elif [[ "{{ github.event_name }}" == "workflow_run" ]]; then
-            TARGET_BRANCH="{{ github.event.workflow_run.head_branch }}"
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            TARGET_BRANCH="${{ github.base_ref }}"
+          elif [[ "${{ github.event_name }}" == "workflow_run" ]]; then
+            TARGET_BRANCH="${{ github.event.workflow_run.head_branch }}"
           else
-            TARGET_BRANCH="{{ github.ref_name }}"
+            TARGET_BRANCH="${{ github.ref_name }}"
           fi
 
           case "$TARGET_BRANCH" in
