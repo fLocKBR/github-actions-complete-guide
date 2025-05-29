@@ -14,6 +14,8 @@ on:
 jobs:
   set-env:
     runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set-env.outputs.environment }}
     steps:
       - name: Set environment variable
         id: set-env
