@@ -1,22 +1,47 @@
 name: Testing
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
   # push:
   #   branches:
   #     - develop
   #     - homol
   #     - main
   # pull_request:
-  # workflow_run:
-  #   workflows: ["Build"]
-  #   types:
-  #     - completed
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
 jobs:
-  branch:
+  set-env:
     runs-on: ubuntu-latest
     steps:
-      - name: Print ref_name
-        run: echo ${{ github.ref_name }}
+      - name: Set environment variable
+        id: set-env
+        run: |
+          if [[ "{{ github.event_name }}" == "pull_request"]]; then
+            TARGET_BRANCH="{{ github.base_ref }}"
+          elif [[ "{{ github.event_name }}" == "workflow_run" ]]; then
+            TARGET_BRANCH="{{ github.event.workflow_run.head_branch }}"
+          else
+            TARGET_BRANCH="{{ github.ref_name }}"
+          fi
+
+          case "$TARGET_BRANCH" in
+            stage) echo "environment=stage" >> $GITHUB_OUTPUT ;;
+            main)  echo "environment=prod" >> $GITHUB_OUTPUT ;;
+            *)     echo "environment=dev" >> $GITHUB_OUTPUT ;;
+          esac
+  test-env:
+    runs-on: ubuntu-latest
+    needs: set-env
+    steps:
+      - name: Print Event Name
+        run: |
+          echo "event_name: ${{ github.event_name }}"
+          echo "head_branch: ${{ github.event.workflow_run.head_branch }}"
+          echo "ref_name: ${{ github.ref_name }}"
+      - name: Print Environment
+        run: echo "Environment is ${{ needs.set-env.outputs.environment }}"
 
   # foo:
   #   if: github.event_name == 'push' && github.ref_name == 'develop'
