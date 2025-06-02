@@ -31,8 +31,8 @@ jobs:
         run: |
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             TARGET_BRANCH="${{ github.base_ref }}"
-          elif [[ "${{ github.event_name }}" == "workflow_run" ]]; then
-            TARGET_BRANCH="${{ github.event.workflow_run.head_branch }}"
+          elif [[ "${{ github.event_name }}" == "repository_dispatch" ]]; then
+            TARGET_BRANCH="${{ github.event.client_payload.base_ref }}"
           else
             TARGET_BRANCH="${{ github.ref_name }}"
           fi
