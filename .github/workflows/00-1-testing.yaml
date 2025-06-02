@@ -12,6 +12,13 @@ on:
     types:
       - completed
 jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump event context
+        run: echo '${{ toJSON(github.event) }}'
   set-env:
     runs-on: ubuntu-latest
     outputs:
