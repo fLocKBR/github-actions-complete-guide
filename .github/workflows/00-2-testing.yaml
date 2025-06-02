@@ -16,7 +16,7 @@ jobs:
       - name: Dump event context
         run: echo '${{ toJSON(github.event) }}'
       - name: Trigger CICD workflow
-        uses: peter-evans/workflow-dispatch@v3
+        uses: peter-evans/repository-dispatch@v3
         with:
           event-type: version-bumped
           client-payload: '{"base_ref": "${{ github.event.pull_request.base_ref }}"}'
