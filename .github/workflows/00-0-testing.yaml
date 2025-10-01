@@ -6,5 +6,23 @@ jobs:
   branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Print ref_name
-        run: echo ${{ github.ref_name }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Step name
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2
+        with:
+          secret-ids: |
+            dev/LinuxTips/postgres
+          parse-json-secrets: true
+      - name: Print env
+        run: env
+      - name: Print secrets
+        run: |
+          echo "DB_HOST: ${{ env.DB_HOST }}"
+          echo "DB_NAME: ${{ env.DB_NAME }}"
+          echo "USERNAME: ${{ env.USERNAME }}"
+          echo "PASSWORD: ${{ env.PASSWORD }}"
