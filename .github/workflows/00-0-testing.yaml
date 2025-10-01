@@ -16,7 +16,7 @@ jobs:
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
         with:
           secret-ids: |
-            dev/LinuxTips/postgres
+            ,dev/LinuxTips/postgres
           parse-json-secrets: true
       - name: Print env
         run: env
